@@ -1,7 +1,9 @@
 import Domain.ElectionClerk;
+import Domain.Voter;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Home extends JFrame{
     private JPanel homePanel;
@@ -24,6 +26,13 @@ public class Home extends JFrame{
             electionClerk.closeTable(dbManager.getConnection());
             dbManager.closeConnection();
             dispose();
+        });
+
+        validateButton.addActionListener(e -> {
+            int document = Integer.parseInt(documentTextField.getText());
+            System.out.println(document);
+            Voter voter = new Voter(dbManager.getConnection(), document);
+            new Validate(voter);
         });
     }
 }

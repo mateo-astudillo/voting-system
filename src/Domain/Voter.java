@@ -1,15 +1,50 @@
 package Domain;
 
-import java.sql.Date;
+import java.sql.*;
 
 public class Voter {
     private int id;
     private int document;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private Date birthdate;
     private String address;
-    private boolean vote;
-    private Date voting_time;
     private String sex;
+
+    public Voter(Connection connection, int document) {
+        this.document = document;
+        try {
+            CallableStatement callableStatement = connection.prepareCall("CALL getVoter(?, ?, ?, ?, ?, ?);");
+            callableStatement.setInt(1, document);
+            callableStatement.execute();
+            this.id = callableStatement.getInt(2);
+            this.firstName = callableStatement.getString(3);
+            this.lastName = callableStatement.getString(4);
+            this.birthdate = callableStatement.getDate(5);
+            this.address = callableStatement.getString(6);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getBirthdate() {
+        return birthdate.toString();
+    }
+
+    public String getDocument() {
+        return "" + document;
+    }
 }
