@@ -24,6 +24,8 @@ public class Voter {
             this.address = callableStatement.getString(6);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (NullPointerException e) {
+            System.out.println("No hay nadie");
         }
 
     }
@@ -41,6 +43,9 @@ public class Voter {
     }
 
     public String getBirthdate() {
+        if (birthdate  ==null) {
+            return "";
+        }
         return birthdate.toString();
     }
 
