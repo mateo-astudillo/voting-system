@@ -3,10 +3,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBManager {
-    private Connection connection;
+    private final Connection connection;
 
     public DBManager(String username, String password, String database, String hostname, int port, String driver) {
-        String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?serverTimezone=America/Argentina/Buenos_Aires";
+        String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database;
         try {
             Class.forName(driver);
             this.connection = DriverManager.getConnection(url, username, password);

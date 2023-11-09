@@ -18,6 +18,7 @@ public class Login extends JFrame {
 
     public Login(DBManager dbManager) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setMinimumSize(new Dimension(400, 400));
         this.setContentPane(this.loginPanel);
         this.setVisible(true);
 

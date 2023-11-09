@@ -1,6 +1,7 @@
 import Domain.ElectionClerk;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Home extends JFrame{
     private JPanel homePanel;
@@ -14,6 +15,15 @@ public class Home extends JFrame{
         electionClerk.saveOpeningTime(dbManager.getConnection());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Sistema de votos");
+        //this.setMinimumSize(new Dimension(400, 400));
+        this.setContentPane(this.homePanel);
         this.setVisible(true);
+        this.pack();
+
+        closeTableButton.addActionListener(e -> {
+            electionClerk.closeTable(dbManager.getConnection());
+            dbManager.closeConnection();
+            dispose();
+        });
     }
 }

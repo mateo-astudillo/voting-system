@@ -29,11 +29,21 @@ public class ElectionClerk {
         }
     }
 
-    public boolean saveOpeningTime(Connection connection) {
+    public void saveOpeningTime(Connection connection) {
         try {
             CallableStatement callableStatement = connection.prepareCall("CALL saveOpeningTime(?)");
             callableStatement.setInt(1, this.id);
-            return callableStatement.execute();
+            callableStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void closeTable(Connection connection) {
+        try {
+            CallableStatement callableStatement = connection.prepareCall("CALL saveClosingTime(?)");
+            callableStatement.setInt(1, this.id);
+            callableStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
